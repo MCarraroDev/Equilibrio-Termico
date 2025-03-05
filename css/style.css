@@ -70,17 +70,74 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
-button {
-    background-color: #ff6b6b;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background 0.3s;
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-button:hover {
-    background-color: #ff5252;
+.buttons button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: #444;
+    border: 1px solid #666;
+    transition: background 0.3s;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.buttons button:hover {
+    background-color: #555;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #ff6b6b;
+}
+
+.checkbox-label {
+    color: #a0a0a0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+}
+
+.chart-container {
+    margin-top: 20px;
+    background-color: #2d2d2d;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#temperatureChart {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+footer {
+    margin-top: 40px;
+    text-align: center;
+    color: #a0a0a0;
+    font-size: 0.9em;
+}
+
+.credito {
+    margin-top: 15px;
+    color: #a0a0a0;
+    font-size: 0.9em;
+}
+
+.credito strong {
+    color: #ff6b6b;
+}
+
+footer strong {
+    color: #ff6b6b;
 }

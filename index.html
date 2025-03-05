@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Simulatore Termico Avanzato</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="lib/p5.min.js"></script>
 </head>
 <body>
@@ -16,8 +17,16 @@
             <div class="slider-column" id="col3"></div>
         </div>
         <div class="buttons">
-            <button onclick="togglePause()">⏯ Pausa</button>
+            <button onclick="togglePause()">▶ Riprendi</button>
             <button onclick="resetSimulation()">🔁 Reset</button>
+            <label class="checkbox-label">
+                <input type="checkbox" id="showChart" onchange="toggleChart()"> Mostra Grafico
+            </label>
+            <button onclick="saveGraph()">📥 Scarica Grafico</button>
+        </div>
+        <div class="credito">Creato da <strong>Marco Carraro</strong></div>
+        <div class="chart-container" id="chartContainer" style="display: none;">
+            <canvas id="temperatureChart"></canvas>
         </div>
     </div>
     <script src="js/sketch.js"></script>

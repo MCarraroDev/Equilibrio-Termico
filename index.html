@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simulatore Termico Avanzato</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="lib/p5.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Simulatore di Scambio Termico</h1>
+        <div id="canvas-container"></div>
+        <div class="control-panel">
+            <div class="slider-column" id="col1"></div>
+            <div class="slider-column" id="col2"></div>
+            <div class="slider-column" id="col3"></div>
+        </div>
+        <div class="buttons">
+            <button onclick="togglePause()">⏯ Pausa</button>
+            <button onclick="resetSimulation()">🔁 Reset</button>
+        </div>
+    </div>
+    <script src="js/sketch.js"></script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-// File: js/sketch.js
 let corpo1, corpo2;
 let t = 0;
 let sliders = {};

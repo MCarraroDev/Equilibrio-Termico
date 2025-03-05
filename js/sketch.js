@@ -2,6 +2,7 @@ let corpo1, corpo2;
 let t = 0;
 let sliders = {};
 let isPaused = false;
+let isEquilibriumReached = false; // Nuova variabile per rilevare l'equilibrio
 
 function setup() {
     const canvas = createCanvas(800, 300);
@@ -21,14 +22,19 @@ function draw() {
     // Disegna corpi attaccati
     drawCorpi();
     
-    // Simula solo se non in pausa
-    if (!isPaused) {
+    // Simula solo se non in pausa e non in equilibrio
+    if (!isPaused && !isEquilibriumReached) {
         simulateHeatTransfer();
-        t += 0.1;
+        t += 0.1; // Incrementa il timer
+        
+        // Controlla se l'equilibrio è stato raggiunto
+        checkEquilibrium();
     }
     
     displayInfo();
 }
+
+
 
 function createSliderPanel() {
     const params = [
@@ -109,10 +115,18 @@ function simulateHeatTransfer() {
     corpo2.temp = constrain(corpo2.temp, 0, 100);
 }
 
+
 function togglePause() {
     isPaused = !isPaused;
     document.querySelector('button:first-child').textContent = 
         isPaused ? '▶ Riprendi' : '⏸ Pausa';
+}
+
+function checkEquilibrium() {
+    const tolerance = 0.1; // Tolleranza per l'equilibrio (0.1°C)
+    if (abs(corpo1.temp - corpo2.temp) < tolerance) {
+        isEquilibriumReached = true; // Ferma il timer
+    }
 }
 
 function displayInfo() {
@@ -122,10 +136,19 @@ function displayInfo() {
     text(`⏱ Tempo: ${t.toFixed(1)} s`, 20, 30);
     text(`🌡 Temperatura Corpo 1: ${corpo1.temp.toFixed(1)} °C`, 20, 60);
     text(`🌡 Temperatura Corpo 2: ${corpo2.temp.toFixed(1)} °C`, 20, 90);
+    
+    // Mostra messaggio di equilibrio
+    if (isEquilibriumReached) {
+        textSize(20);
+        textAlign(CENTER);
+        fill(0, 255, 0);
+        text('Equilibrio Termico Raggiunto!', width / 2, height - 20);
+    }
 }
 
 function resetSimulation() {
     corpo1.temp = sliders.t1.slider.value();
     corpo2.temp = sliders.t2.slider.value();
     t = 0;
+    isEquilibriumReached = false; // Ripristina lo stato di equilibrio
 }

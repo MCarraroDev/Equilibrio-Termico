@@ -1,7 +1,7 @@
 let corpo1, corpo2;
 let t = 0;
 let sliders = {};
-let isPaused = true; // Inizia in pausa
+let isPaused = true;
 let isEquilibriumReached = false;
 let temperatureChart;
 let timeData = [];
@@ -12,7 +12,6 @@ function setup() {
     const canvas = createCanvas(800, 300);
     canvas.parent('canvas-container');
     
-    // Inizializza corpi
     corpo1 = { massa: 100, caloreSpec: 1, temp: 90 };
     corpo2 = { massa: 150, caloreSpec: 0.5, temp: 20 };
     
@@ -32,7 +31,9 @@ function draw() {
     }
     
     displayInfo();
+    updateRealTimeCalculations(); // Aggiorna i calcoli in tempo reale
 }
+
 
 function drawCorpi() {
     noStroke();
@@ -115,10 +116,10 @@ function resetSimulation() {
 
 function toggleChart() {
     const chartContainer = document.getElementById('chartContainer');
-    const show = document.getElementById('showChart').checked;
-    chartContainer.style.display = show ? 'block' : 'none';
-    if(show) temperatureChart.resize();
+    chartContainer.style.display = document.getElementById('showChart').checked ? 'block' : 'none';
+    if (temperatureChart) temperatureChart.resize();
 }
+
 
 function initChart() {
     const ctx = document.getElementById('temperatureChart').getContext('2d');
@@ -217,4 +218,24 @@ function updateParameter(id, value) {
         case 't2': corpo2.temp = value; break;
         case 'k': window.k = value; break;
     }
+}
+
+function updateRealTimeCalculations() {
+    // Calcola temperatura di equilibrio teorica
+    const m1c1 = corpo1.massa * corpo1.caloreSpec;
+    const m2c2 = corpo2.massa * corpo2.caloreSpec;
+    const T_f = (m1c1 * corpo1.temp + m2c2 * corpo2.temp) / (m1c1 + m2c2);
+    
+    // Calcola Q istantaneo
+    const Q = (window.k || 0.01) * (corpo1.temp - corpo2.temp);
+    
+    // Aggiorna la UI
+    document.getElementById('equilibriumTemp').textContent = T_f.toFixed(2);
+    document.getElementById('currentQ').textContent = Q.toFixed(2);
+}
+
+function toggleFormulas() {
+    const formulaPanel = document.getElementById('formula-panel');
+    formulaPanel.style.display = document.getElementById('showFormulas').checked ? 'block' : 'none';
+    MathJax.typeset(); // Ricalcola le formule LaTeX
 }

@@ -5,6 +5,8 @@
     <title>Simulatore Termico Avanzato</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="lib/p5.min.js"></script>
 </head>
 <body>
@@ -17,12 +19,35 @@
             <div class="slider-column" id="col3"></div>
         </div>
         <div class="buttons">
-            <button onclick="togglePause()">▶ Riprendi</button>
+            <button onclick="togglePause()">⏯ Pausa</button>
             <button onclick="resetSimulation()">🔁 Reset</button>
             <button onclick="saveGraph()">📥 Scarica Grafico</button>
             <label class="checkbox-label">
-                <input type="checkbox" id="showChart" onchange="toggleChart()"> Mostra Grafico
+                <input type="checkbox" id="showChart" onchange="toggleChart()"> 📊 Grafico
             </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="showFormulas" onchange="toggleFormulas()"> 📝 Formule
+            </label>
+        </div>
+        <div class="real-time-calculation">
+            <div>🔥 Calore: <span id="currentQ">0.00</span> cal</div>
+            <div>⚖️ Temperatura equilibrio: <span id="equilibriumTemp">0.00</span> °C</div>
+        </div>
+        <div id="formula-panel" class="formula-panel" style="display: none;">
+            <h3>🧮 Formule Scientifiche</h3>
+            <div class="formula">
+                <div class="formula-title">Equilibrio Termico</div>
+                <div class="formula-content">\[ T_f = \frac{m_1 c_1 T_1 + m_2 c_2 T_2}{m_1 c_1 + m_2 c_2} \]</div>
+            </div>
+            <div class="formula">
+                <div class="formula-title">Trasferimento Calore</div>
+                <div class="formula-content">\[ Q = k \cdot (T_1 - T_2) \]</div>
+            </div>
+            <div class="formula">
+                <div class="formula-title">Aggiornamento Temperature</div>
+                <div class="formula-content">\[ T_1^{\text{new}} = T_1 - \frac{Q}{m_1 c_1} \]</div>
+                <div class="formula-content">\[ T_2^{\text{new}} = T_2 + \frac{Q}{m_2 c_2} \]</div>
+            </div>
         </div>
         <div class="credito">Creato da <strong>Marco Carraro</strong></div>
         <div class="chart-container" id="chartContainer" style="display: none;">
